@@ -1,4 +1,4 @@
-import '../models/recipe.dart';
+import '../../domain/models/recipe.dart';
 
 abstract class RecipeDataSource {
   Future<List<Recipe>> getAllRecipes();

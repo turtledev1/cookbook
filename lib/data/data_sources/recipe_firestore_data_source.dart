@@ -1,5 +1,5 @@
 import 'package:injectable/injectable.dart';
-import '../models/recipe.dart';
+import '../../domain/models/recipe.dart';
 import 'recipe_data_source.dart';
 
 @Named('firestore')

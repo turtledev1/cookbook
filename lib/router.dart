@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'router_names.dart';
-import 'features/recipe/presentation/screens/recipe_list_screen.dart';
-import 'features/recipe/presentation/screens/create_recipe_screen.dart';
-import 'features/recipe/presentation/screens/import_recipe_screen.dart';
+import 'presentation/screens/recipe_list_screen.dart';
+import 'presentation/screens/create_recipe_screen.dart';
+import 'presentation/screens/import_recipe_screen.dart';
 
 final goRouter = GoRouter(
   initialLocation: '/',

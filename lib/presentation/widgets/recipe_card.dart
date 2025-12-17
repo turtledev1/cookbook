@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import '../../models/recipe.dart';
+import '../../domain/models/recipe.dart';
 import 'recipe_header.dart';
 import 'recipe_time_info.dart';
 import 'recipe_tags.dart';

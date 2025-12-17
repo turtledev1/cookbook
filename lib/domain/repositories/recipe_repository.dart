@@ -1,6 +1,6 @@
 import 'package:injectable/injectable.dart';
 import '../models/recipe.dart';
-import '../data_sources/recipe_data_source.dart';
+import '../../data/data_sources/recipe_data_source.dart';
 
 @injectable
 class RecipeRepository {

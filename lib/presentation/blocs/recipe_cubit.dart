@@ -1,8 +1,8 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:injectable/injectable.dart';
-import '../../models/recipe.dart';
-import '../../models/search_filter.dart';
-import '../../repositories/recipe_repository.dart';
+import '../../domain/models/recipe.dart';
+import '../../domain/models/search_filter.dart';
+import '../../domain/repositories/recipe_repository.dart';
 
 // States
 abstract class RecipeState {}

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import '../../models/recipe.dart';
+import '../../domain/models/recipe.dart';
 
 class RecipeNutritionInfo extends StatelessWidget {
   final NutritionalInfo nutritionalInfo;
