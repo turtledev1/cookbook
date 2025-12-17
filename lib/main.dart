@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'injection.dart';
-import 'features/recipe/presentation/screens/recipe_list_screen.dart';
+import 'router.dart';
 
 void main() {
   configureDependencies();
@@ -12,13 +12,14 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return MaterialApp.router(
+      debugShowCheckedModeBanner: false,
       title: 'Personal Cookbook',
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.orange),
         useMaterial3: true,
       ),
-      home: const RecipeListScreen(),
+      routerConfig: goRouter,
     );
   }
 }
