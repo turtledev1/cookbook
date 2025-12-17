@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'injection.dart';
-import 'features/recipe/presentation/recipe_list_page.dart';
+import 'features/recipe/presentation/screens/recipe_list_screen.dart';
 
 void main() {
   configureDependencies();
@@ -18,7 +18,7 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.orange),
         useMaterial3: true,
       ),
-      home: const RecipeListPage(),
+      home: const RecipeListScreen(),
     );
   }
 }

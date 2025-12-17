@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import '../../../injection.dart';
+import '../../../../injection.dart';
 import '../blocs/recipe_cubit.dart';
-import 'widgets/recipe_card.dart';
+import '../widgets/recipe_card.dart';
 
-class RecipeListPage extends StatelessWidget {
-  const RecipeListPage({super.key});
+class RecipeListScreen extends StatelessWidget {
+  const RecipeListScreen({super.key});
 
   @override
   Widget build(BuildContext context) {

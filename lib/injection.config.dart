@@ -9,7 +9,14 @@
 // coverage:ignore-file
 
 // ignore_for_file: no_leading_underscores_for_library_prefixes
-import 'package:cookbook/features/recipe/blocs/recipe_cubit.dart' as _i624;
+import 'package:cookbook/features/recipe/data_sources/recipe_data_source.dart'
+    as _i1020;
+import 'package:cookbook/features/recipe/data_sources/recipe_firestore_data_source.dart'
+    as _i35;
+import 'package:cookbook/features/recipe/data_sources/recipe_local_data_source.dart'
+    as _i568;
+import 'package:cookbook/features/recipe/presentation/blocs/recipe_cubit.dart'
+    as _i651;
 import 'package:cookbook/features/recipe/repositories/recipe_repository.dart'
     as _i885;
 import 'package:get_it/get_it.dart' as _i174;
@@ -22,9 +29,21 @@ extension GetItInjectableX on _i174.GetIt {
     _i526.EnvironmentFilter? environmentFilter,
   }) {
     final gh = _i526.GetItHelper(this, environment, environmentFilter);
-    gh.factory<_i885.RecipeRepository>(() => _i885.RecipeRepository());
-    gh.factory<_i624.RecipeCubit>(
-      () => _i624.RecipeCubit(gh<_i885.RecipeRepository>()),
+    gh.factory<_i1020.RecipeDataSource>(
+      () => _i568.RecipeLocalDataSource(),
+      instanceName: 'local',
+    );
+    gh.factory<_i1020.RecipeDataSource>(
+      () => _i35.RecipeFirestoreDataSource(),
+      instanceName: 'firestore',
+    );
+    gh.factory<_i885.RecipeRepository>(
+      () => _i885.RecipeRepository(
+        gh<_i1020.RecipeDataSource>(instanceName: 'local'),
+      ),
+    );
+    gh.factory<_i651.RecipeCubit>(
+      () => _i651.RecipeCubit(gh<_i885.RecipeRepository>()),
     );
     return this;
   }
