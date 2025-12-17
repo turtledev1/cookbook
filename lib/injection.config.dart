@@ -9,8 +9,9 @@
 // coverage:ignore-file
 
 // ignore_for_file: no_leading_underscores_for_library_prefixes
-import 'package:cookbook/blocs/recipe_cubit.dart' as _i187;
-import 'package:cookbook/repositories/recipe_repository.dart' as _i609;
+import 'package:cookbook/features/recipe/blocs/recipe_cubit.dart' as _i624;
+import 'package:cookbook/features/recipe/repositories/recipe_repository.dart'
+    as _i885;
 import 'package:get_it/get_it.dart' as _i174;
 import 'package:injectable/injectable.dart' as _i526;
 
@@ -21,9 +22,9 @@ extension GetItInjectableX on _i174.GetIt {
     _i526.EnvironmentFilter? environmentFilter,
   }) {
     final gh = _i526.GetItHelper(this, environment, environmentFilter);
-    gh.factory<_i609.RecipeRepository>(() => _i609.RecipeRepository());
-    gh.factory<_i187.RecipeCubit>(
-      () => _i187.RecipeCubit(gh<_i609.RecipeRepository>()),
+    gh.factory<_i885.RecipeRepository>(() => _i885.RecipeRepository());
+    gh.factory<_i624.RecipeCubit>(
+      () => _i624.RecipeCubit(gh<_i885.RecipeRepository>()),
     );
     return this;
   }

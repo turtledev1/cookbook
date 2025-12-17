@@ -49,28 +49,45 @@ class RecipeRepository {
         steps: [
           'Preheat oven to 375°F (190°C)',
           'Mix flour, baking soda, and salt in a bowl',
-          'In another bowl, beat butter and both sugars until creamy',
-          'Add eggs and vanilla to butter mixture and beat well',
-          'Gradually stir in flour mixture',
-          'Fold in chocolate chips',
-          'Drop rounded tablespoons of dough onto ungreased cookie sheets',
-          'Bake for 9-11 minutes or until golden brown',
-          'Cool on baking sheet for 2 minutes, then move to wire rack',
+          'In another bowl, cream butter and both sugars until fluffy',
+          'Beat in eggs and vanilla',
+          'Gradually blend in flour mixture',
+          'Stir in chocolate chips',
+          'Drop rounded tablespoons onto ungreased cookie sheets',
+          'Bake 9-11 minutes or until golden brown',
         ],
         prepTimeMinutes: 15,
-        cookTimeMinutes: 11,
-        tags: ['Dessert', 'Baking', 'American', 'Classic'],
-        nutritionalInfo: NutritionalInfo(calories: 150, protein: 2, carbs: 20, fat: 8, fiber: 1, sodium: 140),
-        allergens: ['Gluten', 'Dairy', 'Eggs'],
+        cookTimeMinutes: 10,
+        tags: ['Dessert', 'Baking', 'Cookies'],
+        nutritionalInfo: NutritionalInfo(calories: 150, protein: 2, carbs: 19, fat: 8, fiber: 1, sodium: 85),
+        allergens: ['Eggs', 'Dairy', 'Gluten'],
+      ),
+      Recipe(
+        id: '3',
+        name: 'Green Salad with Vinaigrette',
+        ingredients: [
+          '6 cups mixed greens',
+          '1 cup cherry tomatoes, halved',
+          '1 cucumber, sliced',
+          '1/4 red onion, thinly sliced',
+          '3 tbsp olive oil',
+          '1 tbsp balsamic vinegar',
+          '1 tsp Dijon mustard',
+          'Salt and pepper to taste',
+        ],
+        steps: [
+          'Wash and dry the mixed greens',
+          'In a large bowl, combine greens, tomatoes, cucumber, and onion',
+          'In a small bowl, whisk together olive oil, vinegar, mustard, salt, and pepper',
+          'Drizzle dressing over salad just before serving',
+          'Toss gently to coat',
+        ],
+        prepTimeMinutes: 10,
+        cookTimeMinutes: 0,
+        tags: ['Healthy', 'Vegetarian', 'Salad', 'Quick'],
+        nutritionalInfo: NutritionalInfo(calories: 120, protein: 2, carbs: 8, fat: 10, fiber: 3, sodium: 150),
+        allergens: null,
       ),
     ];
-  }
-
-  Recipe? getRecipeById(String id) {
-    try {
-      return getAllRecipes().firstWhere((recipe) => recipe.id == id);
-    } catch (e) {
-      return null;
-    }
   }
 }
