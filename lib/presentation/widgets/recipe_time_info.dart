@@ -1,16 +1,16 @@
 import 'package:flutter/material.dart';
 
 class RecipeTimeInfo extends StatelessWidget {
-  final int prepTimeMinutes;
-  final int cookTimeMinutes;
-  final int totalTimeMinutes;
-
   const RecipeTimeInfo({
     super.key,
     required this.prepTimeMinutes,
     required this.cookTimeMinutes,
     required this.totalTimeMinutes,
   });
+
+  final int prepTimeMinutes;
+  final int cookTimeMinutes;
+  final int totalTimeMinutes;
 
   @override
   Widget build(BuildContext context) {

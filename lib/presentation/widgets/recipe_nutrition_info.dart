@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
-import '../../domain/models/recipe.dart';
+import 'package:cookbook/domain/models/recipe.dart';
 
 class RecipeNutritionInfo extends StatelessWidget {
-  final NutritionalInfo nutritionalInfo;
-
   const RecipeNutritionInfo({super.key, required this.nutritionalInfo});
+
+  final NutritionalInfo nutritionalInfo;
 
   @override
   Widget build(BuildContext context) {
@@ -28,10 +28,9 @@ class RecipeNutritionInfo extends StatelessWidget {
 }
 
 class _NutritionItem extends StatelessWidget {
+  const _NutritionItem({required this.label, required this.value});
   final String label;
   final String value;
-
-  const _NutritionItem({required this.label, required this.value});
 
   @override
   Widget build(BuildContext context) {

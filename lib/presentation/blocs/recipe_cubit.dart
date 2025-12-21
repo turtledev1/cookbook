@@ -1,8 +1,8 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:injectable/injectable.dart';
-import '../../domain/models/recipe.dart';
-import '../../domain/models/search_filter.dart';
-import '../../domain/repositories/recipe_repository.dart';
+import 'package:cookbook/domain/models/recipe.dart';
+import 'package:cookbook/domain/models/search_filter.dart';
+import 'package:cookbook/domain/repositories/recipe_repository.dart';
 
 // States
 abstract class RecipeState {}
@@ -12,11 +12,6 @@ class RecipeInitial extends RecipeState {}
 class RecipeLoading extends RecipeState {}
 
 class RecipeLoaded extends RecipeState {
-  final List<Recipe> recipes;
-  final List<Recipe> filteredRecipes;
-  final String searchQuery;
-  final SearchFilter searchFilter;
-
   RecipeLoaded(
     this.recipes, {
     List<Recipe>? filteredRecipes,
@@ -24,21 +19,25 @@ class RecipeLoaded extends RecipeState {
     this.searchFilter = SearchFilter.all,
   }) : filteredRecipes = filteredRecipes ?? recipes;
 
+  final List<Recipe> recipes;
+  final List<Recipe> filteredRecipes;
+  final String searchQuery;
+  final SearchFilter searchFilter;
+
   List<Recipe> get displayRecipes => searchQuery.isEmpty ? recipes : filteredRecipes;
 }
 
 class RecipeError extends RecipeState {
-  final String message;
   RecipeError(this.message);
+  final String message;
 }
 
 // Cubit
 @injectable
 class RecipeCubit extends Cubit<RecipeState> {
+  RecipeCubit(this._repository) : super(RecipeInitial());
   final RecipeRepository _repository;
   List<Recipe> _allRecipes = [];
-
-  RecipeCubit(this._repository) : super(RecipeInitial());
 
   Future<void> loadRecipes() async {
     emit(RecipeLoading());
@@ -53,7 +52,7 @@ class RecipeCubit extends Cubit<RecipeState> {
 
   void searchRecipes(String query, SearchFilter filter) {
     if (state is! RecipeLoaded) return;
-    
+
     if (query.isEmpty) {
       emit(RecipeLoaded(_allRecipes, searchQuery: '', searchFilter: filter));
       return;
@@ -71,25 +70,30 @@ class RecipeCubit extends Cubit<RecipeState> {
         case SearchFilter.tags:
           return recipe.tags?.any(
                 (tag) => tag.toLowerCase().contains(lowerQuery),
-              ) ?? false;
+              ) ??
+              false;
         case SearchFilter.all:
           final matchesName = recipe.name.toLowerCase().contains(lowerQuery);
           final matchesIngredients = recipe.ingredients.any(
             (ingredient) => ingredient.toLowerCase().contains(lowerQuery),
           );
-          final matchesTags = recipe.tags?.any(
+          final matchesTags =
+              recipe.tags?.any(
                 (tag) => tag.toLowerCase().contains(lowerQuery),
-              ) ?? false;
+              ) ??
+              false;
           return matchesName || matchesIngredients || matchesTags;
       }
     }).toList();
 
-    emit(RecipeLoaded(
-      _allRecipes,
-      filteredRecipes: filtered,
-      searchQuery: query,
-      searchFilter: filter,
-    ));
+    emit(
+      RecipeLoaded(
+        _allRecipes,
+        filteredRecipes: filtered,
+        searchQuery: query,
+        searchFilter: filter,
+      ),
+    );
   }
 
   void clearSearch() {

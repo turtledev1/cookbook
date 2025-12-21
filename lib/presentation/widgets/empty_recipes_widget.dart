@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 
 class EmptyRecipesWidget extends StatelessWidget {
-  final bool isSearching;
-
   const EmptyRecipesWidget({super.key, required this.isSearching});
+
+  final bool isSearching;
 
   @override
   Widget build(BuildContext context) {

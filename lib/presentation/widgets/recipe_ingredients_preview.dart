@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 
 class RecipeIngredientsPreview extends StatelessWidget {
-  final List<String> ingredients;
-  final int maxVisible;
-
   const RecipeIngredientsPreview({
     super.key,
     required this.ingredients,
     this.maxVisible = 3,
   });
+
+  final List<String> ingredients;
+  final int maxVisible;
 
   @override
   Widget build(BuildContext context) {
@@ -20,7 +20,9 @@ class RecipeIngredientsPreview extends StatelessWidget {
           style: Theme.of(context).textTheme.titleMedium?.copyWith(fontWeight: FontWeight.bold),
         ),
         const SizedBox(height: 8),
-        ...ingredients.take(maxVisible).map(
+        ...ingredients
+            .take(maxVisible)
+            .map(
               (ingredient) => Padding(
                 padding: const EdgeInsets.only(left: 8, bottom: 4),
                 child: Row(

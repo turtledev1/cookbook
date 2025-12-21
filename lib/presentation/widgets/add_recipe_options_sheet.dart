@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import '../../router_names.dart';
+import 'package:cookbook/router_names.dart';
 
 class AddRecipeOptionsSheet extends StatelessWidget {
   const AddRecipeOptionsSheet({super.key});

@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import '../../injection.dart';
-import '../../domain/models/search_filter.dart';
-import '../blocs/recipe_cubit.dart';
-import '../widgets/add_recipe_options_sheet.dart';
-import '../widgets/filter_options_sheet.dart';
-import '../widgets/empty_recipes_widget.dart';
-import '../widgets/recipe_list_view.dart';
-import '../widgets/recipe_search_bar.dart';
+import 'package:cookbook/injection.dart';
+import 'package:cookbook/domain/models/search_filter.dart';
+import 'package:cookbook/presentation/blocs/recipe_cubit.dart';
+import 'package:cookbook/presentation/widgets/add_recipe_options_sheet.dart';
+import 'package:cookbook/presentation/widgets/filter_options_sheet.dart';
+import 'package:cookbook/presentation/widgets/empty_recipes_widget.dart';
+import 'package:cookbook/presentation/widgets/recipe_list_view.dart';
+import 'package:cookbook/presentation/widgets/recipe_search_bar.dart';
 
 class RecipeListScreen extends StatefulWidget {
   const RecipeListScreen({super.key});

@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
-import '../../domain/models/search_filter.dart';
+import 'package:cookbook/domain/models/search_filter.dart';
 
 class FilterOptionsSheet extends StatelessWidget {
+  const FilterOptionsSheet({super.key, required this.currentFilter, required this.onFilterSelected});
+
   final SearchFilter currentFilter;
   final Function(SearchFilter) onFilterSelected;
-
-  const FilterOptionsSheet({super.key, required this.currentFilter, required this.onFilterSelected});
 
   @override
   Widget build(BuildContext context) {

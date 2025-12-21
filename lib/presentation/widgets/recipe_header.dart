@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 
 class RecipeHeader extends StatelessWidget {
-  final String recipeName;
-
   const RecipeHeader({super.key, required this.recipeName});
+
+  final String recipeName;
 
   @override
   Widget build(BuildContext context) {

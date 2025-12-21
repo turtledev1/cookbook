@@ -1,6 +1,6 @@
 import 'package:injectable/injectable.dart';
-import '../../domain/models/recipe.dart';
-import 'recipe_data_source.dart';
+import 'package:cookbook/domain/models/recipe.dart';
+import 'package:cookbook/data/data_sources/recipe_data_source.dart';
 
 @Named('local')
 @Injectable(as: RecipeDataSource)

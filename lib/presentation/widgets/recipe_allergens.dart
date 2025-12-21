@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 
 class RecipeAllergens extends StatelessWidget {
-  final List<String> allergens;
-
   const RecipeAllergens({super.key, required this.allergens});
+
+  final List<String> allergens;
 
   @override
   Widget build(BuildContext context) {

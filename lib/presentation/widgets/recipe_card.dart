@@ -1,17 +1,17 @@
 import 'package:flutter/material.dart';
-import '../../domain/models/recipe.dart';
-import 'recipe_header.dart';
-import 'recipe_time_info.dart';
-import 'recipe_tags.dart';
-import 'recipe_ingredients_preview.dart';
-import 'recipe_steps_preview.dart';
-import 'recipe_nutrition_info.dart';
-import 'recipe_allergens.dart';
+import 'package:cookbook/domain/models/recipe.dart';
+import 'package:cookbook/presentation/widgets/recipe_header.dart';
+import 'package:cookbook/presentation/widgets/recipe_time_info.dart';
+import 'package:cookbook/presentation/widgets/recipe_tags.dart';
+import 'package:cookbook/presentation/widgets/recipe_ingredients_preview.dart';
+import 'package:cookbook/presentation/widgets/recipe_steps_preview.dart';
+import 'package:cookbook/presentation/widgets/recipe_nutrition_info.dart';
+import 'package:cookbook/presentation/widgets/recipe_allergens.dart';
 
 class RecipeCard extends StatelessWidget {
-  final Recipe recipe;
-
   const RecipeCard({super.key, required this.recipe});
+
+  final Recipe recipe;
 
   @override
   Widget build(BuildContext context) {

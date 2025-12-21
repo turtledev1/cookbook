@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'router_names.dart';
-import 'presentation/screens/recipe_list_screen.dart';
-import 'presentation/screens/create_recipe_screen.dart';
-import 'presentation/screens/import_recipe_screen.dart';
+import 'package:cookbook/router_names.dart';
+import 'package:cookbook/presentation/screens/recipe_list_screen.dart';
+import 'package:cookbook/presentation/screens/create_recipe_screen.dart';
+import 'package:cookbook/presentation/screens/import_recipe_screen.dart';
 
 final goRouter = GoRouter(
   initialLocation: '/',
@@ -40,8 +40,8 @@ final goRouter = GoRouter(
           Text(
             state.uri.toString(),
             style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                  color: Colors.grey,
-                ),
+              color: Colors.grey,
+            ),
           ),
           const SizedBox(height: 24),
           ElevatedButton(

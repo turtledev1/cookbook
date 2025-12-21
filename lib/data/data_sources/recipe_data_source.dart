@@ -1,4 +1,4 @@
-import '../../domain/models/recipe.dart';
+import 'package:cookbook/domain/models/recipe.dart';
 
 abstract class RecipeDataSource {
   Future<List<Recipe>> getAllRecipes();

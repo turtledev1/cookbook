@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
-import '../../domain/models/recipe.dart';
-import 'recipe_card.dart';
+import 'package:cookbook/domain/models/recipe.dart';
+import 'package:cookbook/presentation/widgets/recipe_card.dart';
 
 class RecipeListView extends StatelessWidget {
-  final List<Recipe> recipes;
-
   const RecipeListView({super.key, required this.recipes});
+
+  final List<Recipe> recipes;
 
   @override
   Widget build(BuildContext context) {

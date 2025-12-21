@@ -1,13 +1,13 @@
 import 'package:injectable/injectable.dart';
-import '../models/recipe.dart';
-import '../../data/data_sources/recipe_data_source.dart';
+import 'package:cookbook/domain/models/recipe.dart';
+import 'package:cookbook/data/data_sources/recipe_data_source.dart';
+import 'package:cookbook/app_config.dart';
 
 @injectable
 class RecipeRepository {
-  final RecipeDataSource _dataSource;
+  RecipeRepository(@Named(AppConfig.environment) this._dataSource);
 
-  // Change @Named('local') to @Named('firestore') to switch data sources
-  RecipeRepository(@Named('local') this._dataSource);
+  final RecipeDataSource _dataSource;
 
   Future<List<Recipe>> getAllRecipes() {
     return _dataSource.getAllRecipes();

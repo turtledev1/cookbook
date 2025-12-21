@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 
 class RecipeStepsPreview extends StatelessWidget {
-  final List<String> steps;
-  final int maxVisible;
-
   const RecipeStepsPreview({
     super.key,
     required this.steps,
     this.maxVisible = 2,
   });
+
+  final List<String> steps;
+  final int maxVisible;
 
   @override
   Widget build(BuildContext context) {
@@ -20,7 +20,9 @@ class RecipeStepsPreview extends StatelessWidget {
           style: Theme.of(context).textTheme.titleMedium?.copyWith(fontWeight: FontWeight.bold),
         ),
         const SizedBox(height: 8),
-        ...steps.take(maxVisible).map(
+        ...steps
+            .take(maxVisible)
+            .map(
               (step) => Padding(
                 padding: const EdgeInsets.only(left: 8, bottom: 4),
                 child: Row(

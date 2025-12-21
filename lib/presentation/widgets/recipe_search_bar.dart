@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 
 class RecipeSearchBar extends StatelessWidget {
+  const RecipeSearchBar({super.key, required this.controller, required this.onChanged});
+
   final TextEditingController controller;
   final ValueChanged<String> onChanged;
-
-  const RecipeSearchBar({super.key, required this.controller, required this.onChanged});
 
   @override
   Widget build(BuildContext context) {

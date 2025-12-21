@@ -20,8 +20,8 @@ class ImportRecipeScreen extends StatelessWidget {
               style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
             ),
             const SizedBox(height: 16),
-            TextField(
-              decoration: const InputDecoration(
+            const TextField(
+              decoration: InputDecoration(
                 labelText: 'Website URL',
                 hintText: 'https://example.com/recipe',
                 border: OutlineInputBorder(),
