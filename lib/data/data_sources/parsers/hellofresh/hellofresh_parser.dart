@@ -1,0 +1,54 @@
+import 'package:html/parser.dart' as html_parser;
+import 'package:http/http.dart' as http;
+import 'package:cookbook/domain/models/recipe.dart';
+import 'package:cookbook/data/data_sources/parsers/hellofresh/hellofresh_name_parser.dart';
+import 'package:cookbook/data/data_sources/parsers/hellofresh/hellofresh_time_parser.dart';
+import 'package:cookbook/data/data_sources/parsers/hellofresh/hellofresh_ingredients_parser.dart';
+import 'package:cookbook/data/data_sources/parsers/hellofresh/hellofresh_steps_parser.dart';
+import 'package:cookbook/data/data_sources/parsers/hellofresh/hellofresh_nutrition_parser.dart';
+import 'package:cookbook/data/data_sources/parsers/hellofresh/hellofresh_allergens_parser.dart';
+import 'package:cookbook/data/data_sources/parsers/hellofresh/hellofresh_tags_parser.dart';
+
+class HelloFreshParser {
+  final _nameParser = HelloFreshNameParser();
+  final _timeParser = HelloFreshTimeParser();
+  final _ingredientsParser = HelloFreshIngredientsParser();
+  final _stepsParser = HelloFreshStepsParser();
+  final _nutritionParser = HelloFreshNutritionParser();
+  final _allergensParser = HelloFreshAllergensParser();
+  final _tagsParser = HelloFreshTagsParser();
+
+  Future<Recipe?> parseRecipeFromUrl(String url) async {
+    try {
+      final response = await http.get(Uri.parse(url));
+      if (response.statusCode != 200) {
+        return null;
+      }
+
+      final document = html_parser.parse(response.body);
+
+      final name = _nameParser.parse(document);
+      final prepTime = _timeParser.parsePreparationTime(document);
+      final cookTime = _timeParser.parseCookingTime(document);
+      final ingredients = _ingredientsParser.parse(document);
+      final steps = _stepsParser.parse(document);
+      final nutritionalInfo = _nutritionParser.parse(document);
+      final allergens = _allergensParser.parse(document);
+      final tags = _tagsParser.parse(document);
+
+      return Recipe(
+        id: DateTime.now().millisecondsSinceEpoch.toString(),
+        name: name,
+        ingredients: ingredients,
+        steps: steps,
+        prepTimeMinutes: prepTime,
+        cookTimeMinutes: cookTime,
+        nutritionalInfo: nutritionalInfo,
+        allergens: allergens.isNotEmpty ? allergens : null,
+        tags: tags.isNotEmpty ? tags : null,
+      );
+    } catch (e, stackTrace) {
+      return null;
+    }
+  }
+}
