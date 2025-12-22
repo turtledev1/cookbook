@@ -1,7 +1,6 @@
 enum BuildEnvironment {
   dev,
   prod,
-  local, // For offline development
 }
 
 class AppConfig {
@@ -26,8 +25,6 @@ class AppConfig {
         : '${prefix}user_recipes';
   }
 
-  static bool get useFirestore => _buildEnvironment != BuildEnvironment.local;
-  static bool get useLocal => _buildEnvironment == BuildEnvironment.local;
   static bool get isDev => _buildEnvironment == BuildEnvironment.dev;
   static bool get isProd => _buildEnvironment == BuildEnvironment.prod;
 }

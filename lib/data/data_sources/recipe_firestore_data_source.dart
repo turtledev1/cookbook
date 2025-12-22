@@ -4,7 +4,6 @@ import 'package:cookbook/app_config.dart';
 import 'package:cookbook/domain/models/recipe.dart';
 import 'package:cookbook/data/data_sources/recipe_data_source.dart';
 
-@Named('firestore')
 @Injectable(as: RecipeDataSource)
 class RecipeFirestoreDataSource implements RecipeDataSource {
   RecipeFirestoreDataSource(this._firestore);

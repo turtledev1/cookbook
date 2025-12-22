@@ -9,29 +9,14 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
   // Determine environment based on build mode
-  // In debug mode: use dev Firebase project
-  // In release mode: use prod Firebase project
-  // Can also be overridden with --dart-define arguments
-  const environment = String.fromEnvironment('ENV', defaultValue: '');
-  final BuildEnvironment buildEnv;
-
-  if (environment.isNotEmpty) {
-    // Allow override via: flutter run --dart-define=ENV=local
-    buildEnv = BuildEnvironment.values.firstWhere(
-      (e) => e.name == environment,
-      orElse: () => kReleaseMode ? BuildEnvironment.prod : BuildEnvironment.dev,
-    );
-  } else {
-    // Default: dev in debug mode, prod in release mode
-    buildEnv = kReleaseMode ? BuildEnvironment.prod : BuildEnvironment.dev;
-  }
+  // Debug mode: use dev Firebase (dev_shared_recipes)
+  // Release mode: use prod Firebase (shared_recipes)
+  const buildEnv = kReleaseMode ? BuildEnvironment.prod : BuildEnvironment.dev;
 
   AppConfig.initialize(environment: buildEnv);
 
-  // Only initialize Firebase if using Firestore
-  if (AppConfig.useFirestore) {
-    await Firebase.initializeApp();
-  }
+  // Initialize Firebase
+  await Firebase.initializeApp();
 
   configureDependencies();
   runApp(const MyApp());

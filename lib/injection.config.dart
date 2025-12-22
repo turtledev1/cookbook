@@ -13,8 +13,6 @@ import 'package:cloud_firestore/cloud_firestore.dart' as _i974;
 import 'package:cookbook/data/data_sources/recipe_data_source.dart' as _i19;
 import 'package:cookbook/data/data_sources/recipe_firestore_data_source.dart'
     as _i839;
-import 'package:cookbook/data/data_sources/recipe_local_data_source.dart'
-    as _i380;
 import 'package:cookbook/domain/repositories/recipe_repository.dart' as _i33;
 import 'package:cookbook/injection.dart' as _i435;
 import 'package:cookbook/presentation/blocs/recipe_cubit.dart' as _i848;
@@ -31,18 +29,10 @@ extension GetItInjectableX on _i174.GetIt {
     final firebaseModule = _$FirebaseModule();
     gh.lazySingleton<_i974.FirebaseFirestore>(() => firebaseModule.firestore);
     gh.factory<_i19.RecipeDataSource>(
-      () => _i380.RecipeLocalDataSource(),
-      instanceName: 'local',
-    );
-    gh.factory<_i19.RecipeDataSource>(
       () => _i839.RecipeFirestoreDataSource(gh<_i974.FirebaseFirestore>()),
-      instanceName: 'firestore',
     );
     gh.factory<_i33.RecipeRepository>(
-      () => _i33.RecipeRepository(
-        gh<_i19.RecipeDataSource>(instanceName: 'firestore'),
-        gh<_i19.RecipeDataSource>(instanceName: 'local'),
-      ),
+      () => _i33.RecipeRepository(gh<_i19.RecipeDataSource>()),
     );
     gh.factory<_i848.RecipeCubit>(
       () => _i848.RecipeCubit(gh<_i33.RecipeRepository>()),

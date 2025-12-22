@@ -58,16 +58,9 @@ flutter run --release
 - Uses `shared_recipes` collection
 - For deployment to phones
 
-### Local Mode (No Firebase)
-```bash
-flutter run --dart-define=ENV=local
-```
-- Uses in-memory storage
-- No internet required
-
 ## Environment Configuration
 
-Debug builds automatically use dev environment, release builds use prod. Collections are separated by name (`dev_shared_recipes` vs `shared_recipes`) in the same Firebase project.
+Debug builds automatically use dev environment (`dev_shared_recipes` collection), release builds use prod (`shared_recipes` collection) in the same Firebase project.
 
 ## Troubleshooting
 
