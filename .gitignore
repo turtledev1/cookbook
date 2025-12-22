@@ -49,5 +49,5 @@ app.*.map.json
 **/GoogleService-Info.plist
 
 # Environment configuration files
-config.*.json
-!config.*.json.example
+config/*.json
+!config/*.json.example
