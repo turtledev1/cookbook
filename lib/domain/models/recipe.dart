@@ -34,8 +34,6 @@ class Recipe {
 
 @JsonSerializable()
 class NutritionalInfo {
-  // mg
-
   NutritionalInfo({
     required this.calories,
     required this.protein,

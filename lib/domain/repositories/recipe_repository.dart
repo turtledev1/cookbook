@@ -5,7 +5,10 @@ import 'package:cookbook/app_config.dart';
 
 @injectable
 class RecipeRepository {
-  RecipeRepository(@Named(AppConfig.environment) this._dataSource);
+  RecipeRepository(
+    @Named('firestore') RecipeDataSource firestoreDataSource,
+    @Named('local') RecipeDataSource localDataSource,
+  ) : _dataSource = AppConfig.useFirestore ? firestoreDataSource : localDataSource;
 
   final RecipeDataSource _dataSource;
 

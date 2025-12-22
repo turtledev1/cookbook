@@ -41,6 +41,7 @@ extension GetItInjectableX on _i174.GetIt {
     gh.factory<_i33.RecipeRepository>(
       () => _i33.RecipeRepository(
         gh<_i19.RecipeDataSource>(instanceName: 'firestore'),
+        gh<_i19.RecipeDataSource>(instanceName: 'local'),
       ),
     );
     gh.factory<_i848.RecipeCubit>(
