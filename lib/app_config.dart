@@ -1,17 +1,8 @@
-enum BuildEnvironment {
-  dev,
-  prod,
-}
-
 class AppConfig {
-  // This will be set at app startup
-  static BuildEnvironment _buildEnvironment = BuildEnvironment.dev;
-
-  static void initialize({required BuildEnvironment environment}) {
-    _buildEnvironment = environment;
-  }
-
-  static BuildEnvironment get buildEnvironment => _buildEnvironment;
+  // Read environment from --dart-define-from-file
+  // Defaults to 'dev' if not provided
+  static const String environment = String.fromEnvironment('ENVIRONMENT', defaultValue: 'dev');
+  static const String collectionPrefix = String.fromEnvironment('FIREBASE_COLLECTION_PREFIX', defaultValue: 'dev_');
 
   // Set to true to use Firestore in shared mode (all users see same recipes)
   // Set to false for user-specific recipes (requires authentication)
@@ -19,12 +10,11 @@ class AppConfig {
 
   // Firestore collection name with environment prefix
   static String get recipesCollection {
-    final prefix = _buildEnvironment == BuildEnvironment.prod ? '' : '${_buildEnvironment.name}_';
     return useSharedMode
-        ? '${prefix}shared_recipes' // e.g., "dev_shared_recipes" or "shared_recipes"
-        : '${prefix}user_recipes';
+        ? '${collectionPrefix}shared_recipes' // e.g., "dev_shared_recipes" or "shared_recipes"
+        : '${collectionPrefix}user_recipes';
   }
 
-  static bool get isDev => _buildEnvironment == BuildEnvironment.dev;
-  static bool get isProd => _buildEnvironment == BuildEnvironment.prod;
+  static bool get isDev => environment == 'dev';
+  static bool get isProd => environment == 'prod';
 }

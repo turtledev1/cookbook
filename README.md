@@ -44,23 +44,53 @@ The Firebase project is already configured. You need to download the configurati
 
 ## Running the App
 
-### Development (Debug Mode)
+### Development (Dev Environment)
 ```bash
-flutter run
+flutter run --dart-define-from-file=config/config.dev.json
 ```
 - Uses `dev_shared_recipes` collection
 - App title shows "(DEV)" badge
 
-### Production (Release Mode)
+Alternatively, run without config file (defaults to dev):
 ```bash
-flutter run --release
+flutter run
+```
+
+### Production (Prod Environment)
+```bash
+flutter run --dart-define-from-file=config/config.prod.json --release
 ```
 - Uses `shared_recipes` collection
 - For deployment to phones
 
 ## Environment Configuration
 
-Debug builds automatically use dev environment (`dev_shared_recipes` collection), release builds use prod (`shared_recipes` collection) in the same Firebase project.
+The app uses `--dart-define-from-file` to load environment-specific configuration:
+
+- **`config/config.dev.json`**: Development environment (uses `dev_shared_recipes`)
+- **`config/config.prod.json`**: Production environment (uses `shared_recipes`)
+
+If no config file is specified, it defaults to dev settings.
+
+### Configuration Files
+
+Each config file should contain:
+```json
+{
+  "ENVIRONMENT": "dev",
+  "FIREBASE_COLLECTION_PREFIX": "dev_"
+}
+```
+
+For production:
+```json
+{
+  "ENVIRONMENT": "prod",
+  "FIREBASE_COLLECTION_PREFIX": ""
+}
+```
+
+**Note**: Config files are gitignored for security. Each developer should have their own copies.
 
 ## Troubleshooting
 

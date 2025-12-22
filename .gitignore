@@ -47,3 +47,7 @@ app.*.map.json
 # Firebase configuration files (contain API keys)
 **/google-services.json
 **/GoogleService-Info.plist
+
+# Environment configuration files
+config.*.json
+!config.*.json.example

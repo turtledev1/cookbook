@@ -1,5 +1,4 @@
 import 'package:firebase_core/firebase_core.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:cookbook/app_config.dart';
 import 'package:cookbook/injection.dart';
@@ -7,13 +6,6 @@ import 'package:cookbook/router.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-
-  // Determine environment based on build mode
-  // Debug mode: use dev Firebase (dev_shared_recipes)
-  // Release mode: use prod Firebase (shared_recipes)
-  const buildEnv = kReleaseMode ? BuildEnvironment.prod : BuildEnvironment.dev;
-
-  AppConfig.initialize(environment: buildEnv);
 
   // Initialize Firebase
   await Firebase.initializeApp();
