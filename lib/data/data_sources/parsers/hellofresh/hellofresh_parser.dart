@@ -1,5 +1,6 @@
 import 'package:html/parser.dart' as html_parser;
 import 'package:http/http.dart' as http;
+import 'package:injectable/injectable.dart';
 import 'package:cookbook/domain/models/recipe.dart';
 import 'package:cookbook/data/data_sources/parsers/hellofresh/hellofresh_name_parser.dart';
 import 'package:cookbook/data/data_sources/parsers/hellofresh/hellofresh_time_parser.dart';
@@ -10,6 +11,7 @@ import 'package:cookbook/data/data_sources/parsers/hellofresh/hellofresh_allerge
 import 'package:cookbook/data/data_sources/parsers/hellofresh/hellofresh_tags_parser.dart';
 import 'package:cookbook/data/data_sources/parsers/hellofresh/hellofresh_difficulty_parser.dart';
 
+@injectable
 class HelloFreshParser {
   final _nameParser = HelloFreshNameParser();
   final _timeParser = HelloFreshTimeParser();
@@ -51,7 +53,7 @@ class HelloFreshParser {
         allergens: allergens.isNotEmpty ? allergens : null,
         tags: tags.isNotEmpty ? tags : null,
       );
-    } catch (e, stackTrace) {
+    } catch (e, _) {
       return null;
     }
   }
