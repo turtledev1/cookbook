@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:cookbook/injection.dart';
 import 'package:cookbook/domain/models/search_filter.dart';
 import 'package:cookbook/presentation/blocs/recipe_cubit.dart';
 import 'package:cookbook/presentation/widgets/add_recipe_options_sheet.dart';
@@ -46,76 +45,73 @@ class _RecipeListScreenState extends State<RecipeListScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (context) => getIt<RecipeCubit>()..loadRecipes(),
-      child: BlocBuilder<RecipeCubit, RecipeState>(
-        builder: (context, state) {
-          final cubit = context.read<RecipeCubit>();
+    return BlocBuilder<RecipeCubit, RecipeState>(
+      builder: (context, state) {
+        final cubit = context.read<RecipeCubit>();
 
-          return Scaffold(
-            appBar: AppBar(
-              backgroundColor: Theme.of(context).colorScheme.inversePrimary,
-              title: _isSearching
-                  ? RecipeSearchBar(
-                      controller: _searchController,
-                      onChanged: (query) {
-                        cubit.searchRecipes(query, _currentFilter);
-                      },
-                    )
-                  : const Text('My Cookbook'),
-              actions: [
-                if (_isSearching)
-                  IconButton(
-                    icon: const Icon(Icons.filter_list),
-                    tooltip: 'Filter (${_currentFilter.label})',
-                    onPressed: () => _showFilterOptions(context, cubit),
-                  ),
+        return Scaffold(
+          appBar: AppBar(
+            backgroundColor: Theme.of(context).colorScheme.inversePrimary,
+            title: _isSearching
+                ? RecipeSearchBar(
+                    controller: _searchController,
+                    onChanged: (query) {
+                      cubit.searchRecipes(query, _currentFilter);
+                    },
+                  )
+                : const Text('My Cookbook'),
+            actions: [
+              if (_isSearching)
                 IconButton(
-                  icon: Icon(_isSearching ? Icons.close : Icons.search),
-                  onPressed: () {
-                    setState(() {
-                      _isSearching = !_isSearching;
-                      if (!_isSearching) {
-                        _searchController.clear();
-                        _currentFilter = SearchFilter.all;
-                        cubit.clearSearch();
-                      }
-                    });
-                  },
+                  icon: const Icon(Icons.filter_list),
+                  tooltip: 'Filter (${_currentFilter.label})',
+                  onPressed: () => _showFilterOptions(context, cubit),
                 ),
-              ],
-            ),
-            body: Builder(
-              builder: (context) {
-                if (state is RecipeLoading) {
-                  return const Center(child: CircularProgressIndicator());
+              IconButton(
+                icon: Icon(_isSearching ? Icons.close : Icons.search),
+                onPressed: () {
+                  setState(() {
+                    _isSearching = !_isSearching;
+                    if (!_isSearching) {
+                      _searchController.clear();
+                      _currentFilter = SearchFilter.all;
+                      cubit.clearSearch();
+                    }
+                  });
+                },
+              ),
+            ],
+          ),
+          body: Builder(
+            builder: (context) {
+              if (state is RecipeLoading) {
+                return const Center(child: CircularProgressIndicator());
+              }
+
+              if (state is RecipeError) {
+                return Center(child: Text('Error: ${state.message}'));
+              }
+
+              if (state is RecipeLoaded) {
+                final recipes = state.displayRecipes;
+
+                if (recipes.isEmpty) {
+                  return EmptyRecipesWidget(isSearching: _isSearching);
                 }
 
-                if (state is RecipeError) {
-                  return Center(child: Text('Error: ${state.message}'));
-                }
+                return RecipeListView(recipes: recipes);
+              }
 
-                if (state is RecipeLoaded) {
-                  final recipes = state.displayRecipes;
-
-                  if (recipes.isEmpty) {
-                    return EmptyRecipesWidget(isSearching: _isSearching);
-                  }
-
-                  return RecipeListView(recipes: recipes);
-                }
-
-                return const Center(child: Text('No recipes found'));
-              },
-            ),
-            floatingActionButton: FloatingActionButton(
-              onPressed: () => _showAddRecipeOptions(context),
-              tooltip: 'Add Recipe',
-              child: const Icon(Icons.add),
-            ),
-          );
-        },
-      ),
+              return const Center(child: Text('No recipes found'));
+            },
+          ),
+          floatingActionButton: FloatingActionButton(
+            onPressed: () => _showAddRecipeOptions(context),
+            tooltip: 'Add Recipe',
+            child: const Icon(Icons.add),
+          ),
+        );
+      },
     );
   }
 }

@@ -2,12 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:cookbook/domain/models/recipe.dart';
 
 class RecipePreviewCard extends StatelessWidget {
-  final Recipe recipe;
-
   const RecipePreviewCard({
     super.key,
     required this.recipe,
   });
+
+  final Recipe recipe;
 
   @override
   Widget build(BuildContext context) {

@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
 import 'package:cookbook/data/data_sources/parsers/hellofresh/hellofresh_parser.dart';
 import 'package:cookbook/domain/models/recipe.dart';
+import 'package:cookbook/presentation/blocs/recipe_cubit.dart';
 import 'package:cookbook/presentation/widgets/recipe_preview_card.dart';
 
 class ImportRecipeScreen extends StatefulWidget {
@@ -15,6 +18,7 @@ class _ImportRecipeScreenState extends State<ImportRecipeScreen> {
   final _parser = HelloFreshParser();
   Recipe? _parsedRecipe;
   bool _isLoading = false;
+  bool _isSaving = false;
   String? _error;
 
   @override
@@ -58,6 +62,34 @@ class _ImportRecipeScreenState extends State<ImportRecipeScreen> {
       setState(() {
         _error = 'Error: $e';
         _isLoading = false;
+      });
+    }
+  }
+
+  Future<void> _saveRecipe() async {
+    if (_parsedRecipe == null) return;
+
+    setState(() {
+      _isSaving = true;
+      _error = null;
+    });
+
+    try {
+      await context.read<RecipeCubit>().addRecipe(_parsedRecipe!);
+      
+      if (mounted) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(
+            content: Text('Recipe saved successfully!'),
+            backgroundColor: Colors.green,
+          ),
+        );
+        context.pop();
+      }
+    } catch (e) {
+      setState(() {
+        _error = 'Failed to save recipe: $e';
+        _isSaving = false;
       });
     }
   }
@@ -109,9 +141,30 @@ class _ImportRecipeScreenState extends State<ImportRecipeScreen> {
             ],
             if (_parsedRecipe != null) ...[
               const SizedBox(height: 24),
-              const Text(
-                'Parsed Recipe:',
-                style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+              Row(
+                children: [
+                  const Expanded(
+                    child: Text(
+                      'Parsed Recipe:',
+                      style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                    ),
+                  ),
+                  ElevatedButton.icon(
+                    onPressed: _isSaving ? null : _saveRecipe,
+                    icon: _isSaving
+                        ? const SizedBox(
+                            height: 16,
+                            width: 16,
+                            child: CircularProgressIndicator(strokeWidth: 2),
+                          )
+                        : const Icon(Icons.save),
+                    label: const Text('Save Recipe'),
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: Colors.green,
+                      foregroundColor: Colors.white,
+                    ),
+                  ),
+                ],
               ),
               const SizedBox(height: 16),
               RecipePreviewCard(recipe: _parsedRecipe!),

@@ -37,7 +37,7 @@ Map<String, dynamic> _$RecipeToJson(Recipe instance) => <String, dynamic>{
   'cookTimeMinutes': instance.cookTimeMinutes,
   'difficulty': _$RecipeDifficultyEnumMap[instance.difficulty],
   'tags': instance.tags,
-  'nutritionalInfo': instance.nutritionalInfo,
+  'nutritionalInfo': instance.nutritionalInfo.toJson(),
   'allergens': instance.allergens,
 };
 

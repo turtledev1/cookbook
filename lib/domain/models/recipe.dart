@@ -11,7 +11,7 @@ enum RecipeDifficulty {
   hard,
 }
 
-@JsonSerializable()
+@JsonSerializable(explicitToJson: true)
 class Recipe {
   Recipe({
     required this.id,

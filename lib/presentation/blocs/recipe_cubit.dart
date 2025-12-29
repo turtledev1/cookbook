@@ -101,4 +101,34 @@ class RecipeCubit extends Cubit<RecipeState> {
       emit(RecipeLoaded(_allRecipes));
     }
   }
+
+  Future<void> addRecipe(Recipe recipe) async {
+    try {
+      await _repository.addRecipe(recipe);
+      await loadRecipes(); // Reload all recipes after adding
+    } catch (e) {
+      emit(RecipeError('Failed to add recipe: ${e.toString()}'));
+      rethrow;
+    }
+  }
+
+  Future<void> updateRecipe(Recipe recipe) async {
+    try {
+      await _repository.updateRecipe(recipe);
+      await loadRecipes(); // Reload all recipes after updating
+    } catch (e) {
+      emit(RecipeError('Failed to update recipe: ${e.toString()}'));
+      rethrow;
+    }
+  }
+
+  Future<void> deleteRecipe(String id) async {
+    try {
+      await _repository.deleteRecipe(id);
+      await loadRecipes(); // Reload all recipes after deleting
+    } catch (e) {
+      emit(RecipeError('Failed to delete recipe: ${e.toString()}'));
+      rethrow;
+    }
+  }
 }
