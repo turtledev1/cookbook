@@ -86,9 +86,12 @@ class RecipePreviewCard extends StatelessWidget {
               runSpacing: 8,
               children: [
                 _buildNutritionChip('${recipe.nutritionalInfo.calories} kcal', Icons.local_fire_department),
-                _buildNutritionChip('${recipe.nutritionalInfo.protein}g protein', Icons.fitness_center),
-                _buildNutritionChip('${recipe.nutritionalInfo.carbs}g carbs', Icons.grain),
-                _buildNutritionChip('${recipe.nutritionalInfo.fat}g fat', Icons.water_drop),
+                if (recipe.nutritionalInfo.protein != null)
+                  _buildNutritionChip('${recipe.nutritionalInfo.protein}g protein', Icons.fitness_center),
+                if (recipe.nutritionalInfo.carbs != null)
+                  _buildNutritionChip('${recipe.nutritionalInfo.carbs}g carbs', Icons.grain),
+                if (recipe.nutritionalInfo.fat != null)
+                  _buildNutritionChip('${recipe.nutritionalInfo.fat}g fat', Icons.water_drop),
                 if (recipe.nutritionalInfo.fiber != null)
                   _buildNutritionChip('${recipe.nutritionalInfo.fiber}g fiber', Icons.eco),
                 if (recipe.nutritionalInfo.sodium != null)

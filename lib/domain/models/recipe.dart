@@ -36,18 +36,18 @@ class Recipe {
 class NutritionalInfo {
   NutritionalInfo({
     required this.calories,
-    required this.protein,
-    required this.carbs,
-    required this.fat,
+    this.protein,
+    this.carbs,
+    this.fat,
     this.fiber,
     this.sodium,
   });
 
   factory NutritionalInfo.fromJson(Map<String, dynamic> json) => _$NutritionalInfoFromJson(json);
   final int calories;
-  final int protein; // grams
-  final int carbs; // grams
-  final int fat; // grams
+  final int? protein; // grams
+  final int? carbs; // grams
+  final int? fat; // grams
   final int? fiber; // grams
   final int? sodium;
   Map<String, dynamic> toJson() => _$NutritionalInfoToJson(this);

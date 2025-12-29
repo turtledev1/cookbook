@@ -18,9 +18,12 @@ class RecipeNutritionInfo extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.spaceAround,
         children: [
           _NutritionItem(label: 'Calories', value: '${nutritionalInfo.calories}'),
-          _NutritionItem(label: 'Protein', value: '${nutritionalInfo.protein}g'),
-          _NutritionItem(label: 'Carbs', value: '${nutritionalInfo.carbs}g'),
-          _NutritionItem(label: 'Fat', value: '${nutritionalInfo.fat}g'),
+          if (nutritionalInfo.protein != null)
+            _NutritionItem(label: 'Protein', value: '${nutritionalInfo.protein}g'),
+          if (nutritionalInfo.carbs != null)
+            _NutritionItem(label: 'Carbs', value: '${nutritionalInfo.carbs}g'),
+          if (nutritionalInfo.fat != null)
+            _NutritionItem(label: 'Fat', value: '${nutritionalInfo.fat}g'),
         ],
       ),
     );
