@@ -64,6 +64,17 @@ class ImportRecipeCubit extends Cubit<ImportRecipeState> {
     emit(ImportRecipeSaving(recipe));
 
     try {
+      // Check if a recipe with the same name already exists
+      final existingRecipes = await _repository.getAllRecipes();
+      final duplicateName = existingRecipes.any(
+        (existing) => existing.name.toLowerCase() == recipe.name.toLowerCase(),
+      );
+
+      if (duplicateName) {
+        emit(ImportRecipeError('A recipe with the name "${recipe.name}" already exists'));
+        return;
+      }
+
       await _repository.addRecipe(recipe);
       emit(ImportRecipeSaved());
     } catch (e) {
