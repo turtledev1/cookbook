@@ -31,6 +31,12 @@ class RecipePreviewCard extends StatelessWidget {
                 Icon(Icons.restaurant, size: 20, color: Colors.grey[600]),
                 const SizedBox(width: 8),
                 Text('Cook: ${recipe.cookTimeMinutes} min'),
+                if (recipe.difficulty != null) ...[
+                  const SizedBox(width: 16),
+                  Icon(Icons.signal_cellular_alt, size: 20, color: Colors.grey[600]),
+                  const SizedBox(width: 8),
+                  Text(_getDifficultyLabel(recipe.difficulty!)),
+                ],
               ],
             ),
             const SizedBox(height: 16),
@@ -41,16 +47,18 @@ class RecipePreviewCard extends StatelessWidget {
               style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
             ),
             const SizedBox(height: 8),
-            ...recipe.ingredients.map((ingredient) => Padding(
-                  padding: const EdgeInsets.symmetric(vertical: 4),
-                  child: Row(
-                    children: [
-                      const Icon(Icons.check_circle_outline, size: 16),
-                      const SizedBox(width: 8),
-                      Expanded(child: Text(ingredient)),
-                    ],
-                  ),
-                )),
+            ...recipe.ingredients.map(
+              (ingredient) => Padding(
+                padding: const EdgeInsets.symmetric(vertical: 4),
+                child: Row(
+                  children: [
+                    const Icon(Icons.check_circle_outline, size: 16),
+                    const SizedBox(width: 8),
+                    Expanded(child: Text(ingredient)),
+                  ],
+                ),
+              ),
+            ),
             const SizedBox(height: 16),
             const Divider(),
             const SizedBox(height: 16),
@@ -59,20 +67,22 @@ class RecipePreviewCard extends StatelessWidget {
               style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
             ),
             const SizedBox(height: 8),
-            ...recipe.steps.asMap().entries.map((entry) => Padding(
-                  padding: const EdgeInsets.symmetric(vertical: 8),
-                  child: Row(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      CircleAvatar(
-                        radius: 12,
-                        child: Text('${entry.key + 1}'),
-                      ),
-                      const SizedBox(width: 12),
-                      Expanded(child: Text(entry.value)),
-                    ],
-                  ),
-                )),
+            ...recipe.steps.asMap().entries.map(
+              (entry) => Padding(
+                padding: const EdgeInsets.symmetric(vertical: 8),
+                child: Row(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    CircleAvatar(
+                      radius: 12,
+                      child: Text('${entry.key + 1}'),
+                    ),
+                    const SizedBox(width: 12),
+                    Expanded(child: Text(entry.value)),
+                  ],
+                ),
+              ),
+            ),
             const SizedBox(height: 16),
             const Divider(),
             const SizedBox(height: 16),
@@ -109,10 +119,14 @@ class RecipePreviewCard extends StatelessWidget {
               const SizedBox(height: 8),
               Wrap(
                 spacing: 8,
-                children: recipe.allergens!.map((allergen) => Chip(
-                  label: Text(allergen),
-                  backgroundColor: Colors.orange.shade100,
-                )).toList(),
+                children: recipe.allergens!
+                    .map(
+                      (allergen) => Chip(
+                        label: Text(allergen),
+                        backgroundColor: Colors.orange.shade100,
+                      ),
+                    )
+                    .toList(),
               ),
             ],
             if (recipe.tags != null && recipe.tags!.isNotEmpty) ...[
@@ -126,10 +140,14 @@ class RecipePreviewCard extends StatelessWidget {
               const SizedBox(height: 8),
               Wrap(
                 spacing: 8,
-                children: recipe.tags!.map((tag) => Chip(
-                  label: Text(tag),
-                  backgroundColor: Colors.blue.shade100,
-                )).toList(),
+                children: recipe.tags!
+                    .map(
+                      (tag) => Chip(
+                        label: Text(tag),
+                        backgroundColor: Colors.blue.shade100,
+                      ),
+                    )
+                    .toList(),
               ),
             ],
           ],
@@ -144,5 +162,16 @@ class RecipePreviewCard extends StatelessWidget {
       label: Text(label),
       backgroundColor: Colors.green.shade100,
     );
+  }
+
+  String _getDifficultyLabel(RecipeDifficulty difficulty) {
+    switch (difficulty) {
+      case RecipeDifficulty.easy:
+        return 'Easy';
+      case RecipeDifficulty.medium:
+        return 'Medium';
+      case RecipeDifficulty.hard:
+        return 'Hard';
+    }
   }
 }

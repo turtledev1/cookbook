@@ -15,6 +15,10 @@ Recipe _$RecipeFromJson(Map<String, dynamic> json) => Recipe(
   steps: (json['steps'] as List<dynamic>).map((e) => e as String).toList(),
   prepTimeMinutes: (json['prepTimeMinutes'] as num).toInt(),
   cookTimeMinutes: (json['cookTimeMinutes'] as num).toInt(),
+  difficulty: $enumDecodeNullable(
+    _$RecipeDifficultyEnumMap,
+    json['difficulty'],
+  ),
   tags: (json['tags'] as List<dynamic>?)?.map((e) => e as String).toList(),
   nutritionalInfo: NutritionalInfo.fromJson(
     json['nutritionalInfo'] as Map<String, dynamic>,
@@ -31,17 +35,24 @@ Map<String, dynamic> _$RecipeToJson(Recipe instance) => <String, dynamic>{
   'steps': instance.steps,
   'prepTimeMinutes': instance.prepTimeMinutes,
   'cookTimeMinutes': instance.cookTimeMinutes,
+  'difficulty': _$RecipeDifficultyEnumMap[instance.difficulty],
   'tags': instance.tags,
   'nutritionalInfo': instance.nutritionalInfo,
   'allergens': instance.allergens,
 };
 
+const _$RecipeDifficultyEnumMap = {
+  RecipeDifficulty.easy: 'easy',
+  RecipeDifficulty.medium: 'medium',
+  RecipeDifficulty.hard: 'hard',
+};
+
 NutritionalInfo _$NutritionalInfoFromJson(Map<String, dynamic> json) =>
     NutritionalInfo(
       calories: (json['calories'] as num).toInt(),
-      protein: (json['protein'] as num).toInt(),
-      carbs: (json['carbs'] as num).toInt(),
-      fat: (json['fat'] as num).toInt(),
+      protein: (json['protein'] as num?)?.toInt(),
+      carbs: (json['carbs'] as num?)?.toInt(),
+      fat: (json['fat'] as num?)?.toInt(),
       fiber: (json['fiber'] as num?)?.toInt(),
       sodium: (json['sodium'] as num?)?.toInt(),
     );

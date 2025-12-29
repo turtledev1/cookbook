@@ -2,6 +2,15 @@ import 'package:json_annotation/json_annotation.dart';
 
 part 'recipe.g.dart';
 
+enum RecipeDifficulty {
+  @JsonValue('easy')
+  easy,
+  @JsonValue('medium')
+  medium,
+  @JsonValue('hard')
+  hard,
+}
+
 @JsonSerializable()
 class Recipe {
   Recipe({
@@ -11,6 +20,7 @@ class Recipe {
     required this.steps,
     required this.prepTimeMinutes,
     required this.cookTimeMinutes,
+    this.difficulty,
     this.tags,
     required this.nutritionalInfo,
     this.allergens,
@@ -24,6 +34,7 @@ class Recipe {
   final List<String> steps;
   final int prepTimeMinutes;
   final int cookTimeMinutes;
+  final RecipeDifficulty? difficulty;
   final List<String>? tags;
   final NutritionalInfo nutritionalInfo;
   final List<String>? allergens;
