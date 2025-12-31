@@ -3,16 +3,17 @@ import 'package:html/dom.dart';
 class HelloFreshTagsParser {
   List<String> parse(Document document) {
     final tags = <String>[];
-    final bodyText = document.body?.text ?? '';
-    
-    final tagsMatch = RegExp(r'Tags:([^A-Z]+)', caseSensitive: false).firstMatch(bodyText);
-    if (tagsMatch != null) {
-      final tagsText = tagsMatch.group(1)!;
-      final items = tagsText.split(RegExp(r'[,•]'));
-      for (final item in items) {
-        final cleaned = item.trim();
-        if (cleaned.isNotEmpty && cleaned.length < 30) {
-          tags.add(cleaned);
+
+    final tagElements = document.querySelectorAll('[data-test-id="recipe-description-tag"]');
+
+    for (final tagElement in tagElements) {
+      final spans = tagElement.querySelectorAll('span');
+
+      if (spans.isNotEmpty) {
+        final tag = spans.last.text.trim();
+
+        if (tag.isNotEmpty && !tags.contains(tag)) {
+          tags.add(tag);
         }
       }
     }

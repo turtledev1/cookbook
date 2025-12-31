@@ -51,7 +51,6 @@ class _RecipeListScreenState extends State<RecipeListScreen> {
 
         return Scaffold(
           appBar: AppBar(
-            backgroundColor: Theme.of(context).colorScheme.inversePrimary,
             title: _isSearching
                 ? RecipeSearchBar(
                     controller: _searchController,

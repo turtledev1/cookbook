@@ -35,7 +35,6 @@ class _ImportRecipeScreenState extends State<ImportRecipeScreen> {
             ScaffoldMessenger.of(context).showSnackBar(
               const SnackBar(
                 content: Text('Recipe saved successfully!'),
-                backgroundColor: Colors.green,
               ),
             );
             context.pop();
@@ -44,7 +43,6 @@ class _ImportRecipeScreenState extends State<ImportRecipeScreen> {
         child: Scaffold(
           appBar: AppBar(
             title: const Text('Import Recipe'),
-            backgroundColor: Theme.of(context).colorScheme.inversePrimary,
           ),
           body: BlocBuilder<ImportRecipeCubit, ImportRecipeState>(
             builder: (context, state) {
@@ -65,7 +63,7 @@ class _ImportRecipeScreenState extends State<ImportRecipeScreen> {
                       maxLines: 2,
                     ),
                     const SizedBox(height: 16),
-                    ElevatedButton(
+                    OutlinedButton(
                       onPressed: state is ImportRecipeLoading
                           ? null
                           : () => cubit.parseRecipe(_urlController.text.trim()),
@@ -100,7 +98,7 @@ class _ImportRecipeScreenState extends State<ImportRecipeScreen> {
                               style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
                             ),
                           ),
-                          ElevatedButton.icon(
+                          FilledButton.icon(
                             onPressed: state is ImportRecipeSaving
                                 ? null
                                 : () {
@@ -117,10 +115,6 @@ class _ImportRecipeScreenState extends State<ImportRecipeScreen> {
                                   )
                                 : const Icon(Icons.save),
                             label: const Text('Save Recipe'),
-                            style: ElevatedButton.styleFrom(
-                              backgroundColor: Colors.green,
-                              foregroundColor: Colors.white,
-                            ),
                           ),
                         ],
                       ),

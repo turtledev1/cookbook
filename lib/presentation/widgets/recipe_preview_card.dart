@@ -13,7 +13,7 @@ class RecipePreviewCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return Card(
       child: Padding(
-        padding: const EdgeInsets.all(16),
+        padding: const EdgeInsets.all(12),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -24,16 +24,16 @@ class RecipePreviewCard extends StatelessWidget {
             const SizedBox(height: 16),
             Row(
               children: [
-                Icon(Icons.schedule, size: 20, color: Colors.grey[600]),
+                const Icon(Icons.schedule, size: 20),
                 const SizedBox(width: 8),
                 Text('Prep: ${recipe.prepTimeMinutes} min'),
                 const SizedBox(width: 16),
-                Icon(Icons.restaurant, size: 20, color: Colors.grey[600]),
+                const Icon(Icons.restaurant, size: 20),
                 const SizedBox(width: 8),
                 Text('Cook: ${recipe.cookTimeMinutes} min'),
                 if (recipe.difficulty != null) ...[
                   const SizedBox(width: 16),
-                  Icon(Icons.signal_cellular_alt, size: 20, color: Colors.grey[600]),
+                  const Icon(Icons.signal_cellular_alt, size: 20),
                   const SizedBox(width: 8),
                   Text(_getDifficultyLabel(recipe.difficulty!)),
                 ],
@@ -95,7 +95,7 @@ class RecipePreviewCard extends StatelessWidget {
               spacing: 16,
               runSpacing: 8,
               children: [
-                _buildNutritionChip('${recipe.nutritionalInfo.calories} kcal', Icons.local_fire_department),
+                _buildNutritionChip('${recipe.nutritionalInfo.calories} kcal', Icons.local_fire_department_outlined),
                 if (recipe.nutritionalInfo.protein != null)
                   _buildNutritionChip('${recipe.nutritionalInfo.protein}g protein', Icons.fitness_center),
                 if (recipe.nutritionalInfo.carbs != null)
@@ -124,6 +124,7 @@ class RecipePreviewCard extends StatelessWidget {
                       (allergen) => Chip(
                         label: Text(allergen),
                         backgroundColor: Colors.orange.shade100,
+                        labelStyle: TextStyle(color: Colors.orange.shade900),
                       ),
                     )
                     .toList(),
@@ -144,7 +145,7 @@ class RecipePreviewCard extends StatelessWidget {
                     .map(
                       (tag) => Chip(
                         label: Text(tag),
-                        backgroundColor: Colors.blue.shade100,
+                        materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
                       ),
                     )
                     .toList(),
@@ -158,9 +159,10 @@ class RecipePreviewCard extends StatelessWidget {
 
   Widget _buildNutritionChip(String label, IconData icon) {
     return Chip(
-      avatar: Icon(icon, size: 16),
+      avatar: Icon(icon, size: 16, color: Colors.grey[700]),
       label: Text(label),
-      backgroundColor: Colors.green.shade100,
+      backgroundColor: const Color.fromRGBO(227, 234, 227, 1),
+      labelStyle: TextStyle(color: Colors.grey[700]),
     );
   }
 

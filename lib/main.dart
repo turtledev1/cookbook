@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:cookbook/app_config.dart';
 import 'package:cookbook/injection.dart';
 import 'package:cookbook/presentation/blocs/recipe_cubit.dart';
+import 'package:cookbook/presentation/themes/app_theme.dart';
 import 'package:cookbook/router.dart';
 
 void main() async {
@@ -26,7 +27,9 @@ class MyApp extends StatelessWidget {
       child: MaterialApp.router(
         debugShowCheckedModeBanner: false,
         title: 'Personal Cookbook ${AppConfig.isDev ? '(DEV)' : ''}',
-        theme: ThemeData(colorScheme: ColorScheme.fromSeed(seedColor: Colors.green)),
+        theme: AppTheme.lightTheme,
+        darkTheme: AppTheme.darkTheme,
+        themeMode: ThemeMode.light,
         routerConfig: goRouter,
       ),
     );
