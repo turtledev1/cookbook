@@ -45,91 +45,93 @@ class _ImportRecipeScreenState extends State<ImportRecipeScreen> {
           appBar: AppBar(
             title: const Text('Import Recipe'),
           ),
-          body: BlocBuilder<ImportRecipeCubit, ImportRecipeState>(
-            builder: (context, state) {
-              final cubit = context.read<ImportRecipeCubit>();
-
-              return SingleChildScrollView(
-                padding: const EdgeInsets.all(16),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.stretch,
-                  children: [
-                    TextField(
-                      controller: _urlController,
-                      decoration: const InputDecoration(
-                        labelText: 'HelloFresh Recipe URL',
-                        hintText: 'https://www.hellofresh.ca/recipes/...',
-                        border: OutlineInputBorder(),
-                      ),
-                      maxLines: 2,
-                    ),
-                    const SizedBox(height: 16),
-                    OutlinedButton(
-                      onPressed: state is ImportRecipeLoading
-                          ? null
-                          : () => cubit.parseRecipe(_urlController.text.trim()),
-                      child: state is ImportRecipeLoading
-                          ? const SizedBox(
-                              height: 20,
-                              width: 20,
-                              child: CircularProgressIndicator(strokeWidth: 2),
-                            )
-                          : const Text('Parse Recipe'),
-                    ),
-                    if (state is ImportRecipeError) ...[
-                      const SizedBox(height: 16),
-                      Card(
-                        color: Colors.red.shade50,
-                        child: Padding(
-                          padding: const EdgeInsets.all(16),
-                          child: Text(
-                            state.message,
-                            style: TextStyle(color: Colors.red.shade900),
-                          ),
+          body: SafeArea(
+            child: BlocBuilder<ImportRecipeCubit, ImportRecipeState>(
+              builder: (context, state) {
+                final cubit = context.read<ImportRecipeCubit>();
+            
+                return SingleChildScrollView(
+                  padding: const EdgeInsets.all(16),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.stretch,
+                    children: [
+                      TextField(
+                        controller: _urlController,
+                        decoration: const InputDecoration(
+                          labelText: 'HelloFresh Recipe URL',
+                          hintText: 'https://www.hellofresh.ca/recipes/...',
+                          border: OutlineInputBorder(),
                         ),
+                        maxLines: 2,
                       ),
-                    ],
-                    if (state is ImportRecipeParsed || state is ImportRecipeSaving) ...[
-                      const SizedBox(height: 24),
-                      Row(
-                        children: [
-                          const Expanded(
+                      const SizedBox(height: 16),
+                      OutlinedButton(
+                        onPressed: state is ImportRecipeLoading
+                            ? null
+                            : () => cubit.parseRecipe(_urlController.text.trim()),
+                        child: state is ImportRecipeLoading
+                            ? const SizedBox(
+                                height: 20,
+                                width: 20,
+                                child: CircularProgressIndicator(strokeWidth: 2),
+                              )
+                            : const Text('Parse Recipe'),
+                      ),
+                      if (state is ImportRecipeError) ...[
+                        const SizedBox(height: 16),
+                        Card(
+                          color: Colors.red.shade50,
+                          child: Padding(
+                            padding: const EdgeInsets.all(16),
                             child: Text(
-                              'Parsed Recipe:',
-                              style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                              state.message,
+                              style: TextStyle(color: Colors.red.shade900),
                             ),
                           ),
-                          FilledButton.icon(
-                            onPressed: state is ImportRecipeSaving
-                                ? null
-                                : () {
-                                    final recipe = state is ImportRecipeParsed
-                                        ? state.recipe
-                                        : (state as ImportRecipeSaving).recipe;
-                                    cubit.saveRecipe(recipe);
-                                  },
-                            icon: state is ImportRecipeSaving
-                                ? const SizedBox(
-                                    height: 16,
-                                    width: 16,
-                                    child: CircularProgressIndicator(strokeWidth: 2),
-                                  )
-                                : const Icon(Icons.save),
-                            label: const Text('Save Recipe'),
-                          ),
-                        ],
-                      ),
-                      const SizedBox(height: 16),
-                      RecipePreviewCard(
-                        recipe: state is ImportRecipeParsed
-                            ? state.recipe
-                            : (state as ImportRecipeSaving).recipe,
-                      ),
+                        ),
+                      ],
+                      if (state is ImportRecipeParsed || state is ImportRecipeSaving) ...[
+                        const SizedBox(height: 24),
+                        Row(
+                          children: [
+                            const Expanded(
+                              child: Text(
+                                'Parsed Recipe:',
+                                style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                              ),
+                            ),
+                            FilledButton.icon(
+                              onPressed: state is ImportRecipeSaving
+                                  ? null
+                                  : () {
+                                      final recipe = state is ImportRecipeParsed
+                                          ? state.recipe
+                                          : (state as ImportRecipeSaving).recipe;
+                                      cubit.saveRecipe(recipe);
+                                    },
+                              icon: state is ImportRecipeSaving
+                                  ? const SizedBox(
+                                      height: 16,
+                                      width: 16,
+                                      child: CircularProgressIndicator(strokeWidth: 2),
+                                    )
+                                  : const Icon(Icons.save),
+                              label: const Text('Save Recipe'),
+                            ),
+                          ],
+                        ),
+                        const SizedBox(height: 16),
+                        RecipePreviewCard(
+                          recipe: state is ImportRecipeParsed
+                              ? state.recipe
+                              : (state as ImportRecipeSaving).recipe,
+                        ),
+                      ],
                     ],
-                  ],
-                ),
-              );
-            },
+                  ),
+                );
+              },
+            ),
           ),
         ),
       ),

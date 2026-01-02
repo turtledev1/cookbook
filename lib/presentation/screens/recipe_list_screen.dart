@@ -82,28 +82,30 @@ class _RecipeListScreenState extends State<RecipeListScreen> {
               ),
             ],
           ),
-          body: Builder(
-            builder: (context) {
-              if (state is RecipeLoading) {
-                return const Center(child: CircularProgressIndicator());
-              }
-
-              if (state is RecipeError) {
-                return Center(child: Text('Error: ${state.message}'));
-              }
-
-              if (state is RecipeLoaded) {
-                final recipes = state.displayRecipes;
-
-                if (recipes.isEmpty) {
-                  return EmptyRecipesWidget(isSearching: _isSearching);
+          body: SafeArea(
+            child: Builder(
+              builder: (context) {
+                if (state is RecipeLoading) {
+                  return const Center(child: CircularProgressIndicator());
                 }
 
-                return RecipeListView(recipes: recipes);
-              }
+                if (state is RecipeError) {
+                  return Center(child: Text('Error: ${state.message}'));
+                }
 
-              return const Center(child: Text('No recipes found'));
-            },
+                if (state is RecipeLoaded) {
+                  final recipes = state.displayRecipes;
+
+                  if (recipes.isEmpty) {
+                    return EmptyRecipesWidget(isSearching: _isSearching);
+                  }
+
+                  return RecipeListView(recipes: recipes);
+                }
+
+                return const Center(child: Text('No recipes found'));
+              },
+            ),
           ),
           floatingActionButton: FloatingActionButton(
             onPressed: () => _showAddRecipeOptions(context),

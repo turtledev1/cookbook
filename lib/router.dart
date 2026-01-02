@@ -29,7 +29,17 @@ final goRouter = GoRouter(
       path: '/recipe/:id',
       name: RouteNames.recipeDetail,
       builder: (context, state) {
-        final recipe = state.extra as Recipe;
+        final extra = state.extra;
+        final Recipe recipe;
+
+        if (extra is Recipe) {
+          recipe = extra;
+        } else if (extra is Map<String, dynamic>) {
+          recipe = Recipe.fromJson(extra);
+        } else {
+          throw Exception('Invalid recipe data');
+        }
+
         return RecipeDetailScreen(recipe: recipe);
       },
     ),

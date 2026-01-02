@@ -217,8 +217,14 @@ class RecipeDetailScreen extends StatelessWidget {
 
   Widget _buildNutritionChip(String label, IconData icon) {
     return Chip(
-      avatar: Icon(icon, size: 16, color: Colors.grey[700]),
-      label: Text(label),
+      label: Row(
+        mainAxisSize: MainAxisSize.min,
+        spacing: 6,
+        children: [
+          Icon(icon, size: 16, color: Colors.grey[700]),
+          Text(label),
+        ],
+      ),
       backgroundColor: const Color.fromRGBO(227, 234, 227, 1),
       labelStyle: TextStyle(color: Colors.grey[700]),
     );
