@@ -26,6 +26,7 @@ Recipe _$RecipeFromJson(Map<String, dynamic> json) => Recipe(
   allergens: (json['allergens'] as List<dynamic>?)
       ?.map((e) => e as String)
       .toList(),
+  imageUrl: json['imageUrl'] as String?,
   createdAt: DateTime.parse(json['createdAt'] as String),
   updatedAt: DateTime.parse(json['updatedAt'] as String),
 );
@@ -41,6 +42,7 @@ Map<String, dynamic> _$RecipeToJson(Recipe instance) => <String, dynamic>{
   'tags': instance.tags,
   'nutritionalInfo': instance.nutritionalInfo.toJson(),
   'allergens': instance.allergens,
+  'imageUrl': instance.imageUrl,
   'createdAt': instance.createdAt.toIso8601String(),
   'updatedAt': instance.updatedAt.toIso8601String(),
 };

@@ -24,6 +24,7 @@ class Recipe {
     this.tags,
     required this.nutritionalInfo,
     this.allergens,
+    this.imageUrl,
     required this.createdAt,
     required this.updatedAt,
   });
@@ -40,6 +41,7 @@ class Recipe {
   final List<String>? tags;
   final NutritionalInfo nutritionalInfo;
   final List<String>? allergens;
+  final String? imageUrl;
   final DateTime createdAt;
   final DateTime updatedAt;
 
@@ -58,6 +60,7 @@ class Recipe {
     List<String>? tags,
     NutritionalInfo? nutritionalInfo,
     List<String>? allergens,
+    String? imageUrl,
     DateTime? createdAt,
     DateTime? updatedAt,
   }) {
@@ -72,6 +75,7 @@ class Recipe {
       tags: tags ?? this.tags,
       nutritionalInfo: nutritionalInfo ?? this.nutritionalInfo,
       allergens: allergens ?? this.allergens,
+      imageUrl: imageUrl ?? this.imageUrl,
       createdAt: createdAt ?? this.createdAt,
       updatedAt: updatedAt ?? this.updatedAt,
     );
