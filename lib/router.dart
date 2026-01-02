@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:cookbook/router_names.dart';
+import 'package:cookbook/domain/models/recipe.dart';
 import 'package:cookbook/presentation/screens/recipe_list_screen.dart';
 import 'package:cookbook/presentation/screens/create_recipe_screen.dart';
 import 'package:cookbook/presentation/screens/import_recipe_screen.dart';
+import 'package:cookbook/presentation/screens/recipe_detail_screen.dart';
 
 final goRouter = GoRouter(
   initialLocation: '/',
@@ -22,6 +24,14 @@ final goRouter = GoRouter(
       path: '/import',
       name: RouteNames.importRecipe,
       builder: (context, state) => const ImportRecipeScreen(),
+    ),
+    GoRoute(
+      path: '/recipe/:id',
+      name: RouteNames.recipeDetail,
+      builder: (context, state) {
+        final recipe = state.extra as Recipe;
+        return RecipeDetailScreen(recipe: recipe);
+      },
     ),
   ],
   errorBuilder: (context, state) => Scaffold(
