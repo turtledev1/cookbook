@@ -119,6 +119,7 @@ class RecipePreviewCard extends StatelessWidget {
               const SizedBox(height: 8),
               Wrap(
                 spacing: 8,
+                runSpacing: 8,
                 children: recipe.allergens!
                     .map(
                       (allergen) => Chip(

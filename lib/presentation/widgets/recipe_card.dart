@@ -49,7 +49,10 @@ class RecipeCard extends StatelessWidget {
                 runSpacing: 8,
                 children: recipe.tags!.map((tag) {
                   return Chip(
-                    label: Text(tag),
+                    label: Text(
+                      tag,
+                      style: Theme.of(context).textTheme.bodySmall,
+                    ),
                     materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
                   );
                 }).toList(),

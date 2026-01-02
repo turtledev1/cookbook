@@ -21,6 +21,7 @@ class AppTheme {
       ),
       cardTheme: const CardThemeData(
         color: Colors.white,
+        elevation: 4,
       ),
       chipTheme: const ChipThemeData(
         backgroundColor: green1,
@@ -79,6 +80,7 @@ class AppTheme {
       ),
       cardTheme: const CardThemeData(
         color: Color(0xFF1E1E1E),
+        elevation: 4,
       ),
       chipTheme: const ChipThemeData(
         backgroundColor: appBarColor,
