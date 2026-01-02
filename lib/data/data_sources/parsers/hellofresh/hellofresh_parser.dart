@@ -1,6 +1,7 @@
 import 'package:html/parser.dart' as html_parser;
 import 'package:http/http.dart' as http;
 import 'package:injectable/injectable.dart';
+import 'package:uuid/uuid.dart';
 import 'package:cookbook/domain/models/recipe.dart';
 import 'package:cookbook/data/data_sources/parsers/hellofresh/hellofresh_name_parser.dart';
 import 'package:cookbook/data/data_sources/parsers/hellofresh/hellofresh_time_parser.dart';
@@ -21,6 +22,7 @@ class HelloFreshParser {
   final _allergensParser = HelloFreshAllergensParser();
   final _tagsParser = HelloFreshTagsParser();
   final _difficultyParser = HelloFreshDifficultyParser();
+  final _uuid = const Uuid();
 
   Future<Recipe?> parseRecipeFromUrl(String url) async {
     try {
@@ -41,8 +43,9 @@ class HelloFreshParser {
       final tags = _tagsParser.parse(document);
       final difficulty = _difficultyParser.parse(document);
 
+      final now = DateTime.now();
       return Recipe(
-        id: DateTime.now().millisecondsSinceEpoch.toString(),
+        id: _uuid.v4(),
         name: name,
         ingredients: ingredients,
         steps: steps,
@@ -52,6 +55,8 @@ class HelloFreshParser {
         nutritionalInfo: nutritionalInfo,
         allergens: allergens.isNotEmpty ? allergens : null,
         tags: tags.isNotEmpty ? tags : null,
+        createdAt: now,
+        updatedAt: now,
       );
     } catch (e, _) {
       return null;

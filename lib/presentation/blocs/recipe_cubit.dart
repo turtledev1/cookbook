@@ -114,7 +114,9 @@ class RecipeCubit extends Cubit<RecipeState> {
 
   Future<void> updateRecipe(Recipe recipe) async {
     try {
-      await _repository.updateRecipe(recipe);
+      // Update the updatedAt timestamp
+      final updatedRecipe = recipe.copyWith(updatedAt: DateTime.now());
+      await _repository.updateRecipe(updatedRecipe);
       await loadRecipes(); // Reload all recipes after updating
     } catch (e) {
       emit(RecipeError('Failed to update recipe: ${e.toString()}'));

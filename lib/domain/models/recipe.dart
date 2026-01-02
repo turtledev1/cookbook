@@ -24,6 +24,8 @@ class Recipe {
     this.tags,
     required this.nutritionalInfo,
     this.allergens,
+    required this.createdAt,
+    required this.updatedAt,
   });
 
   factory Recipe.fromJson(Map<String, dynamic> json) => _$RecipeFromJson(json);
@@ -38,9 +40,42 @@ class Recipe {
   final List<String>? tags;
   final NutritionalInfo nutritionalInfo;
   final List<String>? allergens;
+  final DateTime createdAt;
+  final DateTime updatedAt;
 
   int get totalTimeMinutes => prepTimeMinutes + cookTimeMinutes;
+
   Map<String, dynamic> toJson() => _$RecipeToJson(this);
+
+  Recipe copyWith({
+    String? id,
+    String? name,
+    List<String>? ingredients,
+    List<String>? steps,
+    int? prepTimeMinutes,
+    int? cookTimeMinutes,
+    RecipeDifficulty? difficulty,
+    List<String>? tags,
+    NutritionalInfo? nutritionalInfo,
+    List<String>? allergens,
+    DateTime? createdAt,
+    DateTime? updatedAt,
+  }) {
+    return Recipe(
+      id: id ?? this.id,
+      name: name ?? this.name,
+      ingredients: ingredients ?? this.ingredients,
+      steps: steps ?? this.steps,
+      prepTimeMinutes: prepTimeMinutes ?? this.prepTimeMinutes,
+      cookTimeMinutes: cookTimeMinutes ?? this.cookTimeMinutes,
+      difficulty: difficulty ?? this.difficulty,
+      tags: tags ?? this.tags,
+      nutritionalInfo: nutritionalInfo ?? this.nutritionalInfo,
+      allergens: allergens ?? this.allergens,
+      createdAt: createdAt ?? this.createdAt,
+      updatedAt: updatedAt ?? this.updatedAt,
+    );
+  }
 }
 
 @JsonSerializable()
