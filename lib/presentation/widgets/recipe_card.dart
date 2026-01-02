@@ -15,24 +15,34 @@ class RecipeCard extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           // Recipe Image
-          if (recipe.imageUrl != null)
-            ClipRRect(
-              borderRadius: const BorderRadius.vertical(top: Radius.circular(12)),
-              child: CachedNetworkImage(
-                imageUrl: recipe.imageUrl!,
-                width: double.infinity,
-                height: 180,
-                fit: BoxFit.cover,
-                placeholder: (context, url) => Container(
-                  color: Colors.grey[300],
-                  child: const Center(child: CircularProgressIndicator()),
-                ),
-                errorWidget: (context, url, error) => Container(
-                  color: Colors.grey[300],
-                  child: const Icon(Icons.restaurant, size: 48),
-                ),
-              ),
-            ),
+          ClipRRect(
+            borderRadius: const BorderRadius.vertical(top: Radius.circular(12)),
+            child: recipe.imageUrl != null
+                ? CachedNetworkImage(
+                    imageUrl: recipe.imageUrl!,
+                    width: double.infinity,
+                    height: 180,
+                    fit: BoxFit.cover,
+                    placeholder: (context, url) => Container(
+                      color: Colors.grey[300],
+                      child: const Center(child: CircularProgressIndicator()),
+                    ),
+                    errorWidget: (context, url, error) => Container(
+                      color: Colors.grey[300],
+                      child: const Center(
+                        child: Icon(Icons.restaurant, size: 48, color: Colors.grey),
+                      ),
+                    ),
+                  )
+                : Container(
+                    width: double.infinity,
+                    height: 180,
+                    color: Colors.grey[300],
+                    child: const Center(
+                      child: Icon(Icons.restaurant, size: 48, color: Colors.grey),
+                    ),
+                  ),
+          ),
           Padding(
             padding: const EdgeInsets.all(12),
             child: Column(
