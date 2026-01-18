@@ -28,6 +28,17 @@ class _RecipeDetailScreenState extends State<RecipeDetailScreen> {
           SliverAppBar(
             expandedHeight: 300,
             pinned: true,
+            actions: [
+              IconButton(
+                icon: const Icon(Icons.edit),
+                onPressed: () {
+                  context.pushNamed(
+                    RouteNames.recipeForm,
+                    extra: widget.recipe,
+                  );
+                },
+              ),
+            ],
             flexibleSpace: FlexibleSpaceBar(
               background: Hero(
                 tag: 'recipe-image-${widget.recipe.id}',
@@ -100,15 +111,6 @@ class _RecipeDetailScreenState extends State<RecipeDetailScreen> {
             ),
           ),
         ],
-      ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          context.pushNamed(
-            RouteNames.recipeForm,
-            extra: widget.recipe,
-          );
-        },
-        child: const Icon(Icons.edit),
       ),
     );
   }
