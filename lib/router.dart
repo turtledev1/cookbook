@@ -3,7 +3,7 @@ import 'package:go_router/go_router.dart';
 import 'package:cookbook/router_names.dart';
 import 'package:cookbook/domain/models/recipe.dart';
 import 'package:cookbook/presentation/screens/recipe_list_screen.dart';
-import 'package:cookbook/presentation/screens/create_recipe_screen.dart';
+import 'package:cookbook/presentation/screens/recipe_form_screen.dart';
 import 'package:cookbook/presentation/screens/import_recipe_screen.dart';
 import 'package:cookbook/presentation/screens/recipe_detail_screen.dart';
 
@@ -18,7 +18,15 @@ final goRouter = GoRouter(
     GoRoute(
       path: '/create',
       name: RouteNames.createRecipe,
-      builder: (context, state) => const CreateRecipeScreen(),
+      builder: (context, state) => const RecipeFormScreen(initialRecipe: null),
+    ),
+    GoRoute(
+      path: '/recipe/form',
+      name: RouteNames.recipeForm,
+      builder: (context, state) {
+        final recipe = state.extra as Recipe?;
+        return RecipeFormScreen(initialRecipe: recipe);
+      },
     ),
     GoRoute(
       path: '/import',

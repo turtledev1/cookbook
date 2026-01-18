@@ -58,6 +58,10 @@ class AppTheme {
         backgroundColor: green3,
         contentTextStyle: TextStyle(color: Colors.white),
       ),
+      dialogTheme: const DialogThemeData(
+        backgroundColor: Colors.white,
+        surfaceTintColor: Colors.transparent,
+      ),
       scaffoldBackgroundColor: Colors.white,
     );
   }

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:cookbook/domain/models/recipe.dart';
-import 'package:cookbook/presentation/widgets/recipe_card.dart';
+import 'package:cookbook/presentation/widgets/recipe_list/recipe_card.dart';
 
 class RecipeListView extends StatelessWidget {
   const RecipeListView({super.key, required this.recipes});

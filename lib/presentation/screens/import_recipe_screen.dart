@@ -1,11 +1,12 @@
 import 'package:cookbook/presentation/blocs/import_recipe_state.dart';
+import 'package:cookbook/router_names.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:cookbook/injection.dart';
 import 'package:cookbook/presentation/blocs/import_recipe_cubit.dart';
 import 'package:cookbook/presentation/blocs/recipe_cubit.dart';
-import 'package:cookbook/presentation/widgets/recipe_preview_card.dart';
+import 'package:cookbook/presentation/widgets/import/recipe_preview_card.dart';
 
 class ImportRecipeScreen extends StatefulWidget {
   const ImportRecipeScreen({super.key});
@@ -92,31 +93,48 @@ class _ImportRecipeScreenState extends State<ImportRecipeScreen> {
                       ],
                       if (state is ImportRecipeParsed || state is ImportRecipeSaving) ...[
                         const SizedBox(height: 24),
+                        const Text(
+                          'Parsed Recipe:',
+                          style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                        ),
+                        const SizedBox(height: 16),
                         Row(
                           children: [
-                            const Expanded(
-                              child: Text(
-                                'Parsed Recipe:',
-                                style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                            Expanded(
+                              child: FilledButton.icon(
+                                onPressed: state is ImportRecipeSaving
+                                    ? null
+                                    : () {
+                                        final recipe = state is ImportRecipeParsed
+                                            ? state.recipe
+                                            : (state as ImportRecipeSaving).recipe;
+                                        cubit.saveRecipe(recipe);
+                                      },
+                                icon: state is ImportRecipeSaving
+                                    ? const SizedBox(
+                                        height: 16,
+                                        width: 16,
+                                        child: CircularProgressIndicator(strokeWidth: 2),
+                                      )
+                                    : const Icon(Icons.save),
+                                label: const Text('Save Recipe'),
                               ),
                             ),
-                            FilledButton.icon(
+                            const SizedBox(width: 8),
+                            IconButton.outlined(
                               onPressed: state is ImportRecipeSaving
                                   ? null
                                   : () {
                                       final recipe = state is ImportRecipeParsed
                                           ? state.recipe
                                           : (state as ImportRecipeSaving).recipe;
-                                      cubit.saveRecipe(recipe);
+                                      context.pushNamed(
+                                        RouteNames.recipeForm,
+                                        extra: recipe,
+                                      );
                                     },
-                              icon: state is ImportRecipeSaving
-                                  ? const SizedBox(
-                                      height: 16,
-                                      width: 16,
-                                      child: CircularProgressIndicator(strokeWidth: 2),
-                                    )
-                                  : const Icon(Icons.save),
-                              label: const Text('Save Recipe'),
+                              icon: const Icon(Icons.edit),
+                              tooltip: 'Edit recipe',
                             ),
                           ],
                         ),
