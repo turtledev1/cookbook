@@ -6,6 +6,8 @@ import 'package:cookbook/presentation/screens/recipe_list_screen.dart';
 import 'package:cookbook/presentation/screens/recipe_form_screen.dart';
 import 'package:cookbook/presentation/screens/import_recipe_screen.dart';
 import 'package:cookbook/presentation/screens/recipe_detail_screen.dart';
+import 'package:cookbook/presentation/screens/settings_screen.dart';
+import 'package:cookbook/presentation/screens/about_screen.dart';
 
 final goRouter = GoRouter(
   initialLocation: '/',
@@ -50,6 +52,16 @@ final goRouter = GoRouter(
 
         return RecipeDetailScreen(recipe: recipe);
       },
+    ),
+    GoRoute(
+      path: '/settings',
+      name: RouteNames.settings,
+      builder: (context, state) => const SettingsScreen(),
+    ),
+    GoRoute(
+      path: '/about',
+      name: RouteNames.about,
+      builder: (context, state) => const AboutScreen(),
     ),
   ],
   errorBuilder: (context, state) => Scaffold(

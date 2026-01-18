@@ -1,4 +1,5 @@
 import 'package:cookbook/presentation/blocs/recipe_state.dart';
+import 'package:cookbook/presentation/blocs/settings_cubit.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:injectable/injectable.dart';
 import 'package:cookbook/domain/models/recipe.dart';
@@ -7,19 +8,36 @@ import 'package:cookbook/domain/repositories/recipe_repository.dart';
 
 @injectable
 class RecipeCubit extends Cubit<RecipeState> {
-  RecipeCubit(this._repository) : super(RecipeInitial());
+  RecipeCubit(this._repository, this._settingsCubit) : super(RecipeInitial());
   final RecipeRepository _repository;
+  final SettingsCubit _settingsCubit;
   List<Recipe> _allRecipes = [];
 
   Future<void> loadRecipes() async {
     emit(RecipeLoading());
     try {
       final recipes = await _repository.getAllRecipes();
-      _allRecipes = recipes;
-      emit(RecipeLoaded(recipes));
+      _allRecipes = _sortRecipes(recipes);
+      emit(RecipeLoaded(_allRecipes));
     } catch (e) {
       emit(RecipeError(e.toString()));
     }
+  }
+
+  List<Recipe> _sortRecipes(List<Recipe> recipes) {
+    final sortOrder = _settingsCubit.state.sortOrder;
+    final sorted = List<Recipe>.from(recipes);
+
+    switch (sortOrder) {
+      case SortOrder.alphabetical:
+        sorted.sort((a, b) => a.name.toLowerCase().compareTo(b.name.toLowerCase()));
+      case SortOrder.newest:
+        sorted.sort((a, b) => b.createdAt.compareTo(a.createdAt));
+      case SortOrder.oldest:
+        sorted.sort((a, b) => a.createdAt.compareTo(b.createdAt));
+    }
+
+    return sorted;
   }
 
   void searchRecipes(String query, SearchFilter filter) {
@@ -70,6 +88,13 @@ class RecipeCubit extends Cubit<RecipeState> {
 
   void clearSearch() {
     if (state is RecipeLoaded) {
+      emit(RecipeLoaded(_allRecipes));
+    }
+  }
+
+  void applySortOrder() {
+    if (state is RecipeLoaded) {
+      _allRecipes = _sortRecipes(_allRecipes);
       emit(RecipeLoaded(_allRecipes));
     }
   }

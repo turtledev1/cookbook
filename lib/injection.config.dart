@@ -19,6 +19,7 @@ import 'package:cookbook/domain/repositories/recipe_repository.dart' as _i33;
 import 'package:cookbook/injection.dart' as _i435;
 import 'package:cookbook/presentation/blocs/import_recipe_cubit.dart' as _i736;
 import 'package:cookbook/presentation/blocs/recipe_cubit.dart' as _i848;
+import 'package:cookbook/presentation/blocs/settings_cubit.dart' as _i138;
 import 'package:get_it/get_it.dart' as _i174;
 import 'package:injectable/injectable.dart' as _i526;
 
@@ -31,6 +32,7 @@ extension GetItInjectableX on _i174.GetIt {
     final gh = _i526.GetItHelper(this, environment, environmentFilter);
     final firebaseModule = _$FirebaseModule();
     gh.factory<_i1044.HelloFreshParser>(() => _i1044.HelloFreshParser());
+    gh.singleton<_i138.SettingsCubit>(() => _i138.SettingsCubit());
     gh.lazySingleton<_i974.FirebaseFirestore>(() => firebaseModule.firestore);
     gh.factory<_i19.RecipeDataSource>(
       () => _i839.RecipeFirestoreDataSource(gh<_i974.FirebaseFirestore>()),
@@ -45,7 +47,10 @@ extension GetItInjectableX on _i174.GetIt {
       ),
     );
     gh.factory<_i848.RecipeCubit>(
-      () => _i848.RecipeCubit(gh<_i33.RecipeRepository>()),
+      () => _i848.RecipeCubit(
+        gh<_i33.RecipeRepository>(),
+        gh<_i138.SettingsCubit>(),
+      ),
     );
     return this;
   }

@@ -4,4 +4,6 @@ class RouteNames {
   static const String recipeForm = 'recipe-form';
   static const String importRecipe = 'import-recipe';
   static const String recipeDetail = 'recipe-detail';
+  static const String settings = 'settings';
+  static const String about = 'about';
 }

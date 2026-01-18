@@ -8,6 +8,7 @@ import 'package:cookbook/presentation/widgets/recipe_list/filter_options_sheet.d
 import 'package:cookbook/presentation/widgets/recipe_list/empty_recipes_widget.dart';
 import 'package:cookbook/presentation/widgets/recipe_list/recipe_list_view.dart';
 import 'package:cookbook/presentation/widgets/recipe_list/recipe_search_bar.dart';
+import 'package:cookbook/presentation/widgets/app_drawer.dart';
 
 class RecipeListScreen extends StatefulWidget {
   const RecipeListScreen({super.key});
@@ -51,6 +52,7 @@ class _RecipeListScreenState extends State<RecipeListScreen> {
         final cubit = context.read<RecipeCubit>();
 
         return Scaffold(
+          drawer: const AppDrawer(),
           appBar: AppBar(
             title: _isSearching
                 ? RecipeSearchBar(
