@@ -20,17 +20,20 @@ class AllergensSection extends StatelessWidget {
         ),
         const SizedBox(height: 12),
         Wrap(
-          spacing: 8,
-          runSpacing: 8,
+          spacing: 6,
+          runSpacing: 4,
           children: allergens!.map((allergen) {
             return Chip(
               label: Text(allergen),
               backgroundColor: Colors.orange.shade100,
               labelStyle: TextStyle(color: Colors.orange.shade900),
+              materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
+              visualDensity: const VisualDensity(horizontal: 0, vertical: -4),
+              padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 0),
             );
           }).toList(),
         ),
-        const SizedBox(height: 24),
+        const SizedBox(height: 18),
       ],
     );
   }

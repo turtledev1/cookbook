@@ -17,8 +17,8 @@ class NutritionalInfoSection extends StatelessWidget {
         ),
         const SizedBox(height: 12),
         Wrap(
-          spacing: 12,
-          runSpacing: 12,
+          spacing: 6,
+          runSpacing: 4,
           children: [
             _NutritionChip(
               label: '${nutritionalInfo.calories} kcal',
@@ -51,7 +51,7 @@ class NutritionalInfoSection extends StatelessWidget {
               ),
           ],
         ),
-        const SizedBox(height: 24),
+        const SizedBox(height: 18),
       ],
     );
   }
@@ -76,6 +76,9 @@ class _NutritionChip extends StatelessWidget {
       ),
       backgroundColor: const Color.fromRGBO(227, 234, 227, 1),
       labelStyle: TextStyle(color: Colors.grey[700]),
+      materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
+      visualDensity: const VisualDensity(horizontal: 0, vertical: -4),
+      padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 0),
     );
   }
 }
